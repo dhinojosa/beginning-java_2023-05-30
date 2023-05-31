@@ -15,7 +15,7 @@ public class CollectionsTest {
     /**
      * 1. Arrays are lightweight and fast
      * 2. But that don't have supporting methods or a
-     *    good developer experience
+      * good developer experience
      */
     @Test
     void testArraysWithPrimitives() {
@@ -116,7 +116,6 @@ public class CollectionsTest {
         teamSet.add(new Team("Arizona", "Coyotes"));
         Team hornets = new Team("Charlotte", "Hornets");
         teamSet.add(hornets);
-        hornets.setMascot("Sunshine");
         Team hornets2 = new Team("Charlotte", "Sunshine");
         teamSet.add(hornets2);
         //question, what's in the set?
@@ -126,4 +125,50 @@ public class CollectionsTest {
         System.out.println(teamSet);
     }
 
+    @Test
+    void testMap() {
+        Map<Integer, String> mapNumberToString = new HashMap<>();
+        mapNumberToString.put(1, "One");
+        mapNumberToString.put(2, "Two");
+        mapNumberToString.put(3, "Three");
+        assertThat(mapNumberToString.get(1)).isEqualTo("One");
+        assertThat(mapNumberToString.get(4)).isNull();
+    }
+
+    @Test
+    void testMapTeams() {
+        Map<Team, String> mapTeamToStadium = new HashMap<>();
+        mapTeamToStadium.put(new Team("Charlotte", "Hornets"), "The Nest");
+        mapTeamToStadium.put(new Team("Washington", "Nationals"), "Nationals Field");
+        mapTeamToStadium.put(new Team("Buffalo", "Bills"), "The Orchard");
+        String actual = mapTeamToStadium.get(new Team("Buffalo", "Bills"));
+        System.out.println(actual);
+        assertThat(actual).isEqualTo("The Orchard");
+    }
+
+    @Test
+    void testMapWithATree() {
+        //abstraction on the left          = implementation on the right (specific)
+        Map<Team, String> mapTeamToStadium = new TreeMap<>(new ComparisonByCity());
+        mapTeamToStadium.put(new Team("Charlotte", "Hornets"), "The Nest");
+        mapTeamToStadium.put(new Team("Washington", "Nationals"), "Nationals Field");
+        mapTeamToStadium.put(new Team("Buffalo", "Bills"), "The Orchard");
+        mapTeamToStadium.put(new Team("Dallas", "Stars"), "The Constellation");
+        mapTeamToStadium.put(new Team("Seattle", "Mariners"), "The Docks");
+        assertThat(mapTeamToStadium.get(new Team("Dallas", "Stars"))).isEqualTo("The Constellation");
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
