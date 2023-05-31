@@ -1,10 +1,9 @@
 package com.salesforce;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-
 
 public class TeamTest {
     //Z - Zero
@@ -88,10 +87,63 @@ public class TeamTest {
     }
 
     @Test
-    void testWinLossRecord() {
+    @DisplayName("Testing a team with a record of 3-1")
+    void testWinLossRecordWithThreeWinsAndOneLoss() {
         Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
         Team baltimoreOriolesWithThreeWinsAndALoss = baltimoreOrioles.addWin().addWin().addWin().addLoss();
         String record = baltimoreOriolesWithThreeWinsAndALoss.getRecord();
         assertThat(record).isEqualTo("3-1");
+    }
+
+
+    @Test
+    @DisplayName("Testing a team with a record of 2-2")
+    void testWinLossRecordWithTwoWinsAndTwoLosses() {
+        Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
+        Team baltimoreOriolesWithThreeWinsAndALoss = baltimoreOrioles.addWin().addWin().addLoss().addLoss();
+        String record = baltimoreOriolesWithThreeWinsAndALoss.getRecord();
+        assertThat(record).isEqualTo("2-2");
+    }
+
+    @Test
+    void testStringRepresentationOfTheBaltimoreOrioles() {
+        Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
+        assertThat(baltimoreOrioles).hasToString("Team{city=Baltimore, mascot=Orioles}");
+    }
+
+    @Test
+    void testStringRepresentationOfTheFloridaMarlins() {
+        Team floridaMarlins = new Team("Florida", "Marlins"); //instantiation
+        assertThat(floridaMarlins.toString()).isEqualTo("Team{city=Florida, mascot=Marlins}");
+    }
+
+    @Test
+    void testEqualityOfTheSameTeam() {
+        Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
+        Team baltimoreOrioles2 = new Team("Baltimore", "Orioles"); //instantiation
+        assertThat(baltimoreOrioles).isEqualTo(baltimoreOrioles2);
+    }
+
+    @Test
+    void testNotTheSameReferenceOfTheSameTeam() {
+        Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
+        Team baltimoreOrioles2 = new Team("Baltimore", "Orioles"); //instantiation
+        assertThat(baltimoreOrioles).isNotSameAs(baltimoreOrioles2);
+    }
+
+
+    @SuppressWarnings({"UnnecessaryLocalVariable"})
+    @Test
+    void testTheSameReferenceOfTheSameTeam() {
+        Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
+        Team baltimoreOrioles2 = baltimoreOrioles;
+        assertThat(baltimoreOrioles).isSameAs(baltimoreOrioles2);
+    }
+
+    @Test
+    void testIfTheyAreEqualThenTheyMustHaveTheSameHashCode() {
+        Team baltimoreOrioles = new Team("Baltimore", "Orioles");
+        Team baltimoreOrioles2 = new Team("Baltimore", "Orioles");
+        assertThat(baltimoreOrioles.hashCode()).isEqualTo(baltimoreOrioles2.hashCode());
     }
 }
