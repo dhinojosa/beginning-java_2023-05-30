@@ -144,6 +144,8 @@ public class TeamTest {
     void testIfTheyAreEqualThenTheyMustHaveTheSameHashCode() {
         Team baltimoreOrioles = new Team("Baltimore", "Orioles");
         Team baltimoreOrioles2 = new Team("Baltimore", "Orioles");
+        System.out.println(baltimoreOrioles.hashCode());
+        System.out.println(baltimoreOrioles2.hashCode());
         assertThat(baltimoreOrioles.hashCode()).isEqualTo(baltimoreOrioles2.hashCode());
     }
 }

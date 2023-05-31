@@ -6,7 +6,7 @@ import java.util.StringJoiner;
 public class Team {
 
     private final String city;
-    private final String mascot;
+    private String mascot;
     private final int wins;
     private final int losses;
 
@@ -33,8 +33,6 @@ public class Team {
         return city;
     }
 
-
-
     public String getMascot() {
         return mascot;
     }
@@ -55,6 +53,9 @@ public class Team {
         return String.format("%s-%s", wins, losses);
     }
 
+    public void setMascot(String mascot) {
+        this.mascot = mascot;
+    }
 
     @Override
     public String toString() {
