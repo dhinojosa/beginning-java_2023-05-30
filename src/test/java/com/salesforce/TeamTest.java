@@ -82,8 +82,16 @@ public class TeamTest {
     @Test
     void testThatTheTeamWonThreeGamesAndLostOne() {
         Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
-        Team baltimoreOriolesWithTwoWins = baltimoreOrioles.addWin().addWin().addWin().addLoss();
-        assertThat(baltimoreOriolesWithTwoWins.getWins()).isEqualTo(3);
-        assertThat(baltimoreOriolesWithTwoWins.getLosses()).isEqualTo(1);
+        Team baltimoreOriolesWithThreeWinsAndALoss = baltimoreOrioles.addWin().addWin().addWin().addLoss();
+        assertThat(baltimoreOriolesWithThreeWinsAndALoss.getWins()).isEqualTo(3);
+        assertThat(baltimoreOriolesWithThreeWinsAndALoss.getLosses()).isEqualTo(1);
+    }
+
+    @Test
+    void testWinLossRecord() {
+        Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
+        Team baltimoreOriolesWithThreeWinsAndALoss = baltimoreOrioles.addWin().addWin().addWin().addLoss();
+        String record = baltimoreOriolesWithThreeWinsAndALoss.getRecord();
+        assertThat(record).isEqualTo("3-1");
     }
 }
