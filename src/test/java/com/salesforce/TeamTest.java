@@ -53,4 +53,37 @@ public class TeamTest {
         assertThat(chattanoogaOrioles.getCity()).isEqualTo("Chattanooga");
         System.out.println(baltimoreOrioles.getCity());
     }
+
+    @Test
+    void testThatTheTeamWonOneGame() {
+        Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
+        //Command/Query Separation
+        //1. win()
+        //2. won()     1
+        //3. addWin(); 2
+        Team baltimoreOriolesWithAWin = baltimoreOrioles.addWin();
+        assertThat(baltimoreOriolesWithAWin.getWins()).isEqualTo(1);
+    }
+
+    @Test
+    void testThatTheTeamWonTwoGames() {
+        Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
+        Team baltimoreOriolesWithTwoWins = baltimoreOrioles.addWin().addWin();
+        assertThat(baltimoreOriolesWithTwoWins.getWins()).isEqualTo(2);
+    }
+
+    @Test
+    void testThatTheTeamWonThreeGames() {
+        Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
+        Team baltimoreOriolesWithTwoWins = baltimoreOrioles.addWin().addWin().addWin();
+        assertThat(baltimoreOriolesWithTwoWins.getWins()).isEqualTo(3);
+    }
+
+    @Test
+    void testThatTheTeamWonThreeGamesAndLostOne() {
+        Team baltimoreOrioles = new Team("Baltimore", "Orioles"); //instantiation
+        Team baltimoreOriolesWithTwoWins = baltimoreOrioles.addWin().addWin().addWin().addLoss();
+        assertThat(baltimoreOriolesWithTwoWins.getWins()).isEqualTo(3);
+        assertThat(baltimoreOriolesWithTwoWins.getLosses()).isEqualTo(1);
+    }
 }
