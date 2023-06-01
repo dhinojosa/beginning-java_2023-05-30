@@ -1,11 +1,15 @@
 package com.salesforce;
 
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CollectionsTest {
 
@@ -13,7 +17,7 @@ public class CollectionsTest {
     /**
      * 1. Arrays are lightweight and fast
      * 2. But that don't have supporting methods or a
-      * good developer experience
+     * good developer experience
      */
     @Test
     void testArraysWithPrimitives() {
@@ -144,9 +148,10 @@ public class CollectionsTest {
         assertThat(actual).isEqualTo("The Orchard");
     }
 
-    public void doSomething(Map<String, Integer> map){
+    public void doSomething(Map<String, Integer> map) {
 
     }
+
     @Test
     void testMapWithATree() {
         //abstraction on the left          = implementation on the right (specific)
@@ -161,7 +166,68 @@ public class CollectionsTest {
 
     @Test
     void testSortingCollection() {
-        //fill this in.
+        //1. Create a list of teams
+        //2. Sort it by using Collections.sort(list, comparator);
+        //3. THIS SORTS IN PLACE!! Means that it mutate your collection
+        //4. Remember that Collections.sort returns void
+        //5. Print out the list in the test
+        List<Team> teamList = new ArrayList<>();
+        teamList.add(new Team("Charlotte", "Hornets"));
+        teamList.add(new Team("Washington", "Nationals"));
+        teamList.add(new Team("Buffalo", "Bills"));
+        teamList.add(new Team("Dallas", "Stars"));
+        teamList.add(new Team("Seattle", "Mariners"));
+        Collections.sort(teamList, Comparator.comparing(Team::getCity));
+        System.out.println(teamList);
+    }
+
+    @Test
+    void testSortingCollectionFromArraysAsList() {
+        List<Team> teamList = Arrays.asList(
+            new Team("Charlotte", "Hornets"),
+            new Team("Washington", "Nationals"),
+            new Team("Buffalo", "Bills"),
+            new Team("Dallas", "Stars"),
+            new Team("Seattle", "Mariners")
+        );
+        Collections.sort(teamList, Comparator.comparing(Team::getCity));
+        System.out.println(teamList);
+    }
+
+
+    @Test
+    void testSortingCollectionFromListOf() {
+        List<Team> teamList = List.of (
+            new Team("Charlotte", "Hornets"),
+            new Team("Washington", "Nationals"),
+            new Team("Buffalo", "Bills"),
+            new Team("Dallas", "Stars"),
+            new Team("Seattle", "Mariners")
+        );
+
+        assertThatThrownBy(() ->
+            teamList.sort(Comparator.comparing(Team::getCity)))
+            .isInstanceOf(UnsupportedOperationException.class);
+    }
+
+    @Test
+    void testSortingAnImmutableList() {
+        List<Team> original = List.of (
+            new Team("Charlotte", "Hornets"),
+            new Team("Washington", "Nationals"),
+            new Team("Buffalo", "Bills"),
+            new Team("Dallas", "Stars"),
+            new Team("Seattle", "Mariners")
+        );
+
+        List<Team> result = original
+            .stream()
+            .sorted(Comparator.comparing(Team::getCity))
+            .collect(Collectors.toList());
+
+        System.out.println(original);
+        System.out.println("-----");
+        System.out.println(result);
     }
 }
 
