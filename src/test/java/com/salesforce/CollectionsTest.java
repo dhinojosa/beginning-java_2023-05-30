@@ -1,7 +1,5 @@
 package com.salesforce;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.core.internal.Integers;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -146,16 +144,24 @@ public class CollectionsTest {
         assertThat(actual).isEqualTo("The Orchard");
     }
 
+    public void doSomething(Map<String, Integer> map){
+
+    }
     @Test
     void testMapWithATree() {
         //abstraction on the left          = implementation on the right (specific)
-        Map<Team, String> mapTeamToStadium = new TreeMap<>(new ComparisonByCity());
+        Map<Team, String> mapTeamToStadium = new TreeMap<>(Comparator.comparing(Team::getCity));
         mapTeamToStadium.put(new Team("Charlotte", "Hornets"), "The Nest");
         mapTeamToStadium.put(new Team("Washington", "Nationals"), "Nationals Field");
         mapTeamToStadium.put(new Team("Buffalo", "Bills"), "The Orchard");
         mapTeamToStadium.put(new Team("Dallas", "Stars"), "The Constellation");
         mapTeamToStadium.put(new Team("Seattle", "Mariners"), "The Docks");
         assertThat(mapTeamToStadium.get(new Team("Dallas", "Stars"))).isEqualTo("The Constellation");
+    }
+
+    @Test
+    void testSortingCollection() {
+        //fill this in.
     }
 }
 

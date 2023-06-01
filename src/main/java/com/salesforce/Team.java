@@ -3,7 +3,7 @@ package com.salesforce;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class Team {
+public class Team implements Comparable<Team> {
 
     private final String city;
     private final String mascot;
@@ -69,5 +69,10 @@ public class Team {
     @Override
     public int hashCode() {
         return Objects.hash(city, mascot);
+    }
+
+    @Override
+    public int compareTo(Team other) {
+        return this.wins - other.wins;
     }
 }

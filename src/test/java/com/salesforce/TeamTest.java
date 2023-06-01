@@ -148,4 +148,33 @@ public class TeamTest {
         System.out.println(baltimoreOrioles2.hashCode());
         assertThat(baltimoreOrioles.hashCode()).isEqualTo(baltimoreOrioles2.hashCode());
     }
+
+    @Test
+    void testComparingTwoTeams() {
+        Team la = new Team("Los Angeles", "Lakers")
+            .addWin().addWin().addWin().addLoss();
+        Team chicago = new Team("Chicago", "Bulls")
+            .addLoss().addLoss().addWin().addLoss();
+        int result = la.compareTo(chicago);
+        //1.left hand is greater, it should be positive
+        //2 right hand is greater, it should be negative
+        //3.both side are equal, then 0;
+        // 4 wins 1 win
+        assertThat(result).isEqualTo(2);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
