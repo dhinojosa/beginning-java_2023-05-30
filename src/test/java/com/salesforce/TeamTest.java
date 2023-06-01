@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class TeamTest {
     //Z - Zero
@@ -24,6 +25,24 @@ public class TeamTest {
         assertThat(losses).isZero();
     }
 
+    @Test
+    void testCreateATeamWithANullCity() {
+        Team team = new Team(null, "Orioles"); //instantiation
+    }
+
+    @Test
+    void testCreateATeamWithANullMascot() {
+        assertThatThrownBy(() -> new Team("Baltimore", null))
+            .isInstanceOf(NullPointerException.class)
+            .hasMessage("Mascot cannot be null");
+    }
+
+    @Test
+    void testCreateATeamWithABlankCity() {
+        assertThatThrownBy(() -> new Team("  \t", "Giraffes"))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("City cannot be blank");
+    }
     @Test
     void testCreateATeamAndVerifyItsProperties() {
         Team team = new Team("Baltimore", "Orioles"); //instantiation

@@ -15,6 +15,10 @@ public class Team implements Comparable<Team> {
     }
 
     private Team(String city, String mascot, int wins, int losses) {
+        if (city == null) throw new NullPointerException("City cannot be null");
+        if (mascot == null) throw new NullPointerException("Mascot cannot be null");
+        if (city.isBlank()) throw new IllegalArgumentException("City cannot be blank");
+
         this.city = city;
         this.mascot = mascot;
         this.wins = wins;
